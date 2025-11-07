@@ -14,7 +14,14 @@ The objective is to calculate prime numbers up to a specific limit (`MAX_NUM = 2
 | **Ch 4: MPI** | Using `mpi4py`, Communicator, Rank, Size, Collective communication (`comm.gather`). | `src/mpi_execution.py` |
 
 ## Repository Structure
-/ ├── README.md ├── requirements.txt └── src/ ├── analyzer.py # Core logic (OOP/Prime checking) ├── serial_execution.py # Baseline implementation ├── threaded_execution.py # Threading with Locks ├── multiprocess_execution.py # Multiprocessing with Pool.map └── mpi_execution.py # MPI with Gather
+├── README.md 
+├── requirements.txt 
+└── src/ 
+   ├── analyzer.py # Core logic (OOP/Prime checking) 
+   ├── serial_execution.py # Baseline implementation 
+   ├── threaded_execution.py # Threading with Locks 
+   ├── multiprocess_execution.py # Multiprocessing with Pool.map 
+   └── mpi_execution.py # MPI with Gather
 
 ## Setup and Installation
 
@@ -28,3 +35,5 @@ The objective is to calculate prime numbers up to a specific limit (`MAX_NUM = 2
    ```bash
    git clone <YOUR_REPOSITORY_URL>
    cd Parallel-Prime-Analyzer
+
+2. **pip install -r requirements.txt**
