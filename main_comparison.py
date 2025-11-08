@@ -5,9 +5,18 @@ import multiprocessing
 import os
 
 # Import utilities from the chapter packages
-from Chapter1_Basics_OOP.analyzer import PrimeAnalyzer
-from Chapter2_Threading.thread_utils import ThreadWorker
-from Chapter3_Multiprocessing.process_utils import process_task
+# Added basic error handling for imports
+try:
+    from Chapter1_Basics_OOP.analyzer import PrimeAnalyzer
+    # Ensure you are using the corrected version of thread_utils.py (using start_idx, end_idx)
+    from Chapter2_Threading.thread_utils import ThreadWorker
+    from Chapter3_Multiprocessing.process_utils import process_task
+except ImportError as e:
+    print(f"Error importing modules: {e}")
+    print("Please ensure you are running this script from the root directory of the project,")
+    print("and that empty '__init__.py' files exist in each Chapter folder.")
+    exit(1)
+
 
 # Configuration
 MAX_NUM = 200000 # The total range to analyze (CPU intensive task)
@@ -58,8 +67,9 @@ def run_multithreading(num_threads):
     start_time = time.time()
 
     # (Ch 2) Create and start threads using the custom class
-    for i, (start, end) in enumerate(ranges):
-        t = ThreadWorker(f"T{i+1}", start, end, shared_results, thread_lock)
+    # We pass the start_idx and end_idx which the ThreadWorker expects
+    for i, (start_idx, end_idx) in enumerate(ranges):
+        t = ThreadWorker(f"T{i+1}", start_idx, end_idx, shared_results, thread_lock)
         threads.append(t)
         t.start()
 
@@ -103,7 +113,7 @@ if __name__ == "__main__":
 
     # (Ch 1) Basic Input/Output and error handling
     try:
-        # Get user input, similar to the example provided
+        # Get user input
         default_count = multiprocessing.cpu_count()
         p_count_input = input(f"Enter number of processes (Default: {default_count}): ")
         t_count_input = input(f"Enter number of threads (Default: {default_count}): ")
@@ -123,5 +133,5 @@ if __name__ == "__main__":
     run_multithreading(t_count)
     run_multiprocessing(p_count)
     
+    # Final message (Updated: Removed reference to Chapter 4)
     print("\nTest complete. You can inspect 'calculation_log.txt' for File I/O details.")
-    print("Note: For Chapter 4 (MPI) comparison, please run 'Chapter4_MPI/mpi_test.py' using mpiexec.")
